@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Manager - Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+</head>
+<body>
+    <div class="background"></div>
+    <div class="root">
+        <div class="center-vert container">
+            <h1>Account Manager</h1>
+            <div class="btn-container">
+                <input type="button" value="Create Account" class="btn btn-green" onclick="location.href = '/create';">
+                <input type="button" value="Log Out" class="btn" onclick="location.href = '/logout';">
+            </div>
+        </div>
+        
+        <div class="center-vert container">
+            <h1>Search</h1>
+            <input type="text" autocomplete="off" placeholder="Site" name="site" id="site-search" class="input-text">
+            <input type="text" autocomplete="off" placeholder="Username" name="username" id="username-search" class="input-text">
+            <input type="email" autocomplete="off" placeholder="Email" name="email" id="email-search" class="input-text">
+            <input type="button" value="Search" class="btn" onclick="search()">
+        </div>
+
+        {% for i in range(count) %}
+        <div class="container">
+            <h2>{{ accounts[i].site }}</h2>
+            {% if accounts[i].username %}
+            <p class="pointer" onclick="copy('{{ accounts[i].username }}')">{{ accounts[i].username }}</p>
+            {% endif %}
+            <p class="pointer" onclick="copy('{{ accounts[i].email }}')">{{ accounts[i].email }}</p>
+            <div class="btn-container">
+                <input type="button" onclick="getPassword({{ i }})"value="Get Password" class="btn">
+                <input type="button" onclick="location.href = '/edit/{{ i }}';"value="Edit" class="btn btn-green left">
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <script id="account-loader"> let accs = {{ accounts | tojson }}; let account_loader = document.getElementById("account-loader"); document.body.removeChild(account_loader); </script>
+    <script src="{{ url_for('static', filename='js/search.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Manager - Edit</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+</head>
+<body>
+    <div class="background"></div>
+    <div class="root center">
+        <div class="container center-vert">
+            <h1>Edit</h1>
+            <input class="input-text" autocomplete="off" value="{{ account.site }}" type="text" name="site" id="site" placeholder="Site">
+            <input class="input-text" autocomplete="off" value="{{ account.username }}" type="text" name="username" id="username" placeholder="Username">
+            <input class="input-text" autocomplete="off" value="{{ account.email }}" type="text" name="email" id="email" placeholder="Email">
+            <div class="btn-container">
+                <button class="btn btn-green" onclick="edit({{id}})" id="edit-btn">Confirm</button>
+                <button class="btn" onclick="location.href = '/';" id="cancel-btn">Cancel</button>
+            </div>
+            <div class="btn-container">
+                <button class="btn btn-green" onclick="updatePassword({{id}})" id="edit-btn">Update Password</button>
+                <button class="btn" onclick="del({{id}})" id="edit-btn">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <script id="account-loader"> let _id = {{ id }}; let account_loader = document.getElementById("account-loader"); document.body.removeChild(account_loader); </script>
+    <script src="{{ url_for('static', filename='js/edit.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+</body>
+</html>
